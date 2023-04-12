@@ -1,4 +1,4 @@
-package com.kodeco.daysprint.db
+package com.kodeco.daysprint.data
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

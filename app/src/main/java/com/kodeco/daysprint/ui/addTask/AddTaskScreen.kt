@@ -1,53 +1,19 @@
-package com.kodeco.daysprint.ui
+package com.kodeco.daysprint.ui.addTask
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.kodeco.daysprint.DaySpringRoutes
-
-
-fun NavController.goToTaskListScreen() {
-    this.navigate(DaySpringRoutes.TaskList.route)
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun TaskListScreen(navController: NavController) {
-    Scaffold(
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = { navController.goToAddTaskScreen() }
-            ) {
-                Text(text = "New Task")
-            }
-        }
-    ) {
-
-        LazyColumn(modifier = Modifier.padding(it)) {
-            items(TasksList.items) {
-                TaskCard(task = it)
-            }
-        }
-    }
-}
-
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun TaskCard(task: String, modifier: Modifier = Modifier) {
-    Card(modifier) {
-        Text(text = task)
-    }
-}
+import com.kodeco.daysprint.data.Task
+import com.kodeco.daysprint.ui.tasks.TasksList
+import com.kodeco.daysprint.ui.tasks.goToTaskListScreen
 
 
 fun NavController.goToAddTaskScreen() {
@@ -72,7 +38,12 @@ private fun AddTaskContent(
     onAddTask: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    var task by remember { mutableStateOf(" ") }
+    var task by remember { mutableStateOf<Task>(
+        Task(
+            title = "",
+            description = "",
+        ))
+    }
 
     Column(
         modifier = modifier
@@ -83,10 +54,10 @@ private fun AddTaskContent(
             modifier = Modifier
                 .padding(bottom = 16.dp)
                 .fillMaxWidth(),
-            value = task,
+            value = task.title,
             placeholder = { Text("Clean my room") },
             onValueChange = {
-                task = it
+                task.title = it
             }
         )
 
@@ -97,7 +68,7 @@ private fun AddTaskContent(
             }
         ) {
             Text(
-                modifier = Modifier.padding(8.dp),
+                 modifier = Modifier.padding(8.dp),
                 text = "ADD TASK"
             )
         }
@@ -109,9 +80,4 @@ private fun AddTaskContent(
 @Composable
 fun AddTaskPreview() {
     AddTaskContent(onAddTask = {})
-}
-
-
-object TasksList {
-    val items = mutableStateListOf<String>()
 }

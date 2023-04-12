@@ -2,9 +2,9 @@ package com.kodeco.daysprint.di
 
 import android.app.Application
 import androidx.room.Room
-import com.kodeco.daysprint.db.TaskDatabase
-import com.kodeco.daysprint.db.TaskRepository
-import com.kodeco.daysprint.db.TaskRepositoryImpl
+import com.kodeco.daysprint.data.TaskDatabase
+import com.kodeco.daysprint.data.TaskRepository
+import com.kodeco.daysprint.data.TaskRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
