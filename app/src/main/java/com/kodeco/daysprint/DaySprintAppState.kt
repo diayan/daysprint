@@ -5,23 +5,25 @@ import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.Stable
 import androidx.navigation.NavHostController
 import com.kodeco.daysprint.common.SnackBarManager
+import com.kodeco.daysprint.common.SnackBarMessage.Companion.toMessage
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 
 @Stable
 class DaySprintAppState(
     val scaffoldState: ScaffoldState,
     val navController: NavHostController,
-    private val snackbarManager: SnackBarManager,
+    private val snackBarManager: SnackBarManager,
     private val resources: Resources,
     coroutineScope: CoroutineScope
 ) {
     init {
         coroutineScope.launch {
-//            snackbarManager.snackbarMessages.filterNotNull().collect { snackbarMessage ->
-//                val text = snackbarMessage.toMessage(resources)
-//                scaffoldState.snackbarHostState.showSnackbar(text)
-//            }
+            snackBarManager.snackBarMessages.filterNotNull().collect { snackBarMessage ->
+                val text = snackBarMessage.toMessage(resources)
+                scaffoldState.snackbarHostState.showSnackbar(text)
+            }
         }
     }
 

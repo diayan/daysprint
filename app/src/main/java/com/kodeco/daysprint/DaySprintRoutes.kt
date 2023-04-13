@@ -1,4 +1,4 @@
-package com.kodeco.daysprint.common
+package com.kodeco.daysprint
 
 const val SPLASH_SCREEN = "SplashScreen"
 const val TASKS_SCREEN = "TasksScreen"
