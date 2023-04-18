@@ -1,6 +1,7 @@
 package com.kodeco.daysprint.ui.tasks
 
 import androidx.lifecycle.ViewModel
+import com.kodeco.daysprint.EDIT_TASK_SCREEN
 import com.kodeco.daysprint.data.Task
 import com.kodeco.daysprint.data.TaskRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,6 +13,7 @@ class TaskViewModel @Inject constructor(
     private val repository: TaskRepository
 ): ViewModel() {
     val tasks: Flow<List<Task>> get() = repository.getTasks()
+    val todos = repository.getTasks()
 
     fun markTaskAsDone(task: Task) {
         // TODO: Mark task as done in repository
@@ -23,4 +25,8 @@ class TaskViewModel @Inject constructor(
         // taskRepository.deleteTask(task)
     }
 
+
+    fun onAddClick(openScreen: (String) -> Unit) {
+        return openScreen.invoke(EDIT_TASK_SCREEN)
+    }
 }

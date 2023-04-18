@@ -1,92 +1,79 @@
 package com.kodeco.daysprint.ui.tasks
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.shape.RoundedCornerShape
+import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import com.kodeco.daysprint.DaySpringRoutes
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.kodeco.daysprint.common.ActionToolbar
 import com.kodeco.daysprint.data.Task
-import com.kodeco.daysprint.ui.addTask.goToAddTaskScreen
+import com.kodeco.daysprint.ext.smallSpacer
+import com.kodeco.daysprint.ext.toolbarActions
+import com.kodeco.daysprint.R.drawable as AppIcon
+import com.kodeco.daysprint.R.string as AppText
 
 
-fun NavController.goToTaskListScreen() {
-    this.navigate(DaySpringRoutes.TaskList.route)
-}
-
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TaskListScreen(navController: NavController, taskViewModel: TaskViewModel) {
-    val tasks by taskViewModel.tasks.collectAsState(initial = emptyList())
-
-    Scaffold(floatingActionButton = {
-        FloatingActionButton(onClick = { navController.goToAddTaskScreen() }) {
-            Text(
-                text = "New Task",
-                modifier = Modifier
-                    .padding(16.dp)
-            )
+fun TaskListScreen(
+    openScreen: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: TaskViewModel = hiltViewModel()
+) {
+    androidx.compose.material.Scaffold(
+        floatingActionButton = {
+            androidx.compose.material.FloatingActionButton(
+                onClick = { viewModel.onAddClick(openScreen) },
+                backgroundColor = MaterialTheme.colors.primary,
+                contentColor = MaterialTheme.colors.onPrimary,
+                modifier = modifier.padding(8.dp)
+            ) {
+                androidx.compose.material.Icon(Icons.Filled.Add, "Add")
+            }
         }
-    }) {
+    ) {
+        val tasks = viewModel.tasks.collectAsStateWithLifecycle(emptyList())
+        Column(modifier = Modifier.fillMaxWidth().fillMaxHeight()) {
+            ActionToolbar(
+                title = AppText.tasks,
+                modifier = Modifier.toolbarActions(),
+                endActionIcon = AppIcon.ic_more_vert,
+                endAction = {
+                    //viewModel.onSettingsClick(openScreen)
+                }
+            )
 
-//
-//        LazyColumn {
-//            items(tasks.size, key = { it }) { taskItem ->
-//                TaskItem(
-//                    task = taskItem,
-//                    options = options,
-//                    onCheckChange = { viewModel.onTaskCheckChange(taskItem) },
-//                    onActionClick = { action -> viewModel.onTaskActionClick(openScreen, taskItem, action) }
-//                )
-//            }
-//        }
+            Spacer(modifier = Modifier.smallSpacer())
 
-        LazyVerticalGrid(
-            modifier = Modifier.padding(it),
-            columns = GridCells.Fixed(2),
-            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 24.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            items(tasks.size) { index ->
-                val task = tasks[index]
-                TaskItem(
-                    task = task,
-                    options = listOf(),
-                    onCheckChange =
-                    { /*TODO*/ },
-                    onActionClick = {}
-                )
+            LazyColumn {
+                items(tasks.value, key = { it.id ?: -1}) { taskItem ->
+                    TaskItem(
+                        task = taskItem,
+                        onCheckChange = {
+                            //viewModel.onTaskCheckChange(taskItem)
+                                        },
+                        onActionClick = { action ->
+//                            viewModel.onTaskActionClick(
+//                                openScreen,
+//                                taskItem,
+//                                action
+//                            )
+                        }
+                    )
+                }
             }
         }
     }
-}
-
-
-@Composable
-fun TaskCard(task: String, modifier: Modifier = Modifier) {
-    Card(modifier, shape = RoundedCornerShape(12.dp)) {
-        Column(Modifier.padding(16.dp)) {
-            Text(text = task)
-        }
+    LaunchedEffect(viewModel) {
+       // viewModel.loadTaskOptions()
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun TaskCardPreview() {
-    TaskCard(task = "Clean My Room")
-}
-
-
-object TasksList {
-    val items = mutableStateListOf<Task>()
 }
