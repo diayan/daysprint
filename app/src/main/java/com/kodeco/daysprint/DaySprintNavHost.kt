@@ -19,6 +19,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.kodeco.daysprint.common.*
+import com.kodeco.daysprint.ui.addTask.AddTaskScreen
+import com.kodeco.daysprint.ui.splash.SplashScreen
+import com.kodeco.daysprint.ui.tasks.TaskListScreen
 import com.kodeco.daysprint.ui.theme.DaySprintTheme
 import kotlinx.coroutines.CoroutineScope
 
@@ -71,24 +74,24 @@ fun resources(): Resources {
     return LocalContext.current.resources
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @ExperimentalMaterial3Api
 fun NavGraphBuilder.daySprintGraph(appState: DaySprintAppState) {
     composable(SPLASH_SCREEN) {
-        TODO("Build Splash Screen")
-        //SplashScreen(openAndPopUp = { route, popUp -> appState.navigateAndPopUp(route, popUp) })
+        SplashScreen(openAndPopUp = { route, popUp -> appState.navigateAndPopUp(route, popUp) })
     }
 
     composable(TASKS_SCREEN) {
-        //TaskListScreen(openScreen = { route -> appState.navigate(route) })
+        TaskListScreen(openScreen = { route -> appState.navigate(route) })
     }
 
     composable(
         route = "$EDIT_TASK_SCREEN$TASK_ID_ARG",
         arguments = listOf(navArgument(TASK_ID) { defaultValue = TASK_DEFAULT_ID })
     ) {
-//        AddTaskScreen(
-//            popUpScreen = { appState.popUp() },
-//            taskId = it.arguments?.getString(TASK_ID) ?: TASK_DEFAULT_ID
-//        )
+        AddTaskScreen(
+            popUpScreen = { appState.popUp() },
+            taskId = it.arguments?.getString(TASK_ID) ?: TASK_DEFAULT_ID
+        )
     }
 }

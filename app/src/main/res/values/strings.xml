@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">DaySprint</string>
     <string name="generic_error">Something wrong happened. Please try again.</string>
+    <string name="tasks">Tasks</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="edit_task">Edit your task</string>
 </resources>
