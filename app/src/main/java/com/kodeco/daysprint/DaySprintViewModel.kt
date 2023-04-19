@@ -2,7 +2,6 @@ package com.kodeco.daysprint
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kodeco.daysprint.common.LogService
 import com.kodeco.daysprint.common.SnackBarManager
 import com.kodeco.daysprint.common.SnackBarMessage.Companion.toSnackBarMessage
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -16,7 +15,6 @@ open class DaySprintViewModel : ViewModel() {
                 if (snackBar) {
                     SnackBarManager.showMessage(throwable.toSnackBarMessage())
                 }
-               // logService.logNonFatalCrash(throwable)
             },
             block = block
         )
