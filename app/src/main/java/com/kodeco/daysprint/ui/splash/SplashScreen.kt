@@ -38,7 +38,6 @@ fun SplashScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        //openAndPopUp(TASKS_SCREEN, SPLASH_SCREEN)
     }
 
     LaunchedEffect(Unit) {

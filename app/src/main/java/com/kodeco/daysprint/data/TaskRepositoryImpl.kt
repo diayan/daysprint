@@ -6,18 +6,22 @@ class TaskRepositoryImpl(
     private val taskDao: TaskDao
 ): TaskRepository {
     override suspend fun insertTask(task: Task) {
-        taskDao.insertTodo(task = task)
+        taskDao.insertTask(task = task)
     }
 
     override suspend fun deleteTask(task: Task) {
-        taskDao.deleteTodo(task)
+        taskDao.deleteTask(task)
     }
 
     override suspend fun getTaskById(id: Int): Task? {
-        return taskDao.getTodoById(id)
+        return taskDao.getTaskById(id)
+    }
+
+    override suspend fun update(task: Task) {
+        taskDao.insertTask(task)
     }
 
     override fun getTasks(): Flow<List<Task>> {
-        return  taskDao.getTodos()
+        return  taskDao.getTasks()
     }
 }

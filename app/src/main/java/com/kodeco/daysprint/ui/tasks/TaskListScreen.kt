@@ -14,7 +14,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kodeco.daysprint.common.ActionToolbar
-import com.kodeco.daysprint.data.Task
 import com.kodeco.daysprint.ext.smallSpacer
 import com.kodeco.daysprint.ext.toolbarActions
 import com.kodeco.daysprint.R.drawable as AppIcon
@@ -59,7 +58,7 @@ fun TaskListScreen(
                     TaskItem(
                         task = taskItem,
                         onCheckChange = {
-                            //viewModel.onTaskCheckChange(taskItem)
+                            viewModel.markTaskAsDone(taskItem)
                                         },
                         onActionClick = { action ->
 //                            viewModel.onTaskActionClick(

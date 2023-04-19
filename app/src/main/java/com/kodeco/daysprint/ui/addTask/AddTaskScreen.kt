@@ -52,63 +52,7 @@ fun AddTaskScreen(
         val fieldModifier = Modifier.fieldModifier()
         BasicField(AppText.title, task.title, viewModel::onTitleChange, fieldModifier)
         BasicField(AppText.description, task.description, viewModel::onDescriptionChange, fieldModifier)
-        //BasicField(AppText.url, task.url, viewModel::onUrlChange, fieldModifier)
-
-        Spacer(modifier = Modifier.spacer())
-//        CardEditors(task, viewModel::onDateChange, viewModel::onTimeChange)
-//        CardSelectors(task, viewModel::onPriorityChange, viewModel::onFlagToggle)
 
         Spacer(modifier = Modifier.spacer())
     }
 }
-
-
-//@OptIn(ExperimentalMaterial3Api::class)
-//@Composable
-//private fun AddTaskContent(
-//    onAddTask: () -> Unit,
-//    modifier: Modifier = Modifier,
-//) {
-//    var task by remember { mutableStateOf<Task>(
-//        Task(
-//            title = "",
-//            description = "",
-//        ))
-//    }
-//
-//    Column(
-//        modifier = modifier
-//            .padding(16.dp)
-//            .fillMaxSize()
-//    ) {
-//        TextField(
-//            modifier = Modifier
-//                .padding(bottom = 16.dp)
-//                .fillMaxWidth(),
-//            value = task.title,
-//            placeholder = { Text("Clean my room") },
-//            onValueChange = {
-//                task.title = it
-//            }
-//        )
-
-//        Button(
-//            onClick = {
-//                TaskListScreen(openScreen = )
-//                onAddTask()
-//            }
-//        ) {
-//            Text(
-//                 modifier = Modifier.padding(8.dp),
-//                text = "ADD TASK"
-//            )
-//        }
-//    }
-//}
-
-//
-//@Preview(showBackground = true)
-//@Composable
-//fun AddTaskPreview() {
-//    AddTaskContent(onAddTask = {})
-//}
