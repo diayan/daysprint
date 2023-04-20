@@ -3,6 +3,7 @@ package com.kodeco.daysprint
 const val SPLASH_SCREEN = "SplashScreen"
 const val TASKS_SCREEN = "TasksScreen"
 const val EDIT_TASK_SCREEN = "EditTaskScreen"
+const val DELETE_TASK_SCREEN = "DeleteTaskScreen"
 
 const val TASK_ID = "taskId"
 const val TASK_DEFAULT_ID = "-1"

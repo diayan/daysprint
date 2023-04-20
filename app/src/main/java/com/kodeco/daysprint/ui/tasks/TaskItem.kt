@@ -1,5 +1,6 @@
 package com.kodeco.daysprint.ui.tasks
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -24,6 +25,8 @@ fun TaskItem(
             androidx.compose.material.MaterialTheme.colors.background
         ),
         modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 0.dp),
+        onClick = { onActionClick(task.id) }
+
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -34,16 +37,17 @@ fun TaskItem(
                 onCheckedChange = { onCheckChange() },
                 modifier = Modifier.padding(8.dp, 0.dp)
             )
-
             if(task.completed) {
                 Text(
                     text = task.title,
-                    style = MaterialTheme.typography.titleSmall + TextStyle(
+                    style = MaterialTheme.typography.titleLarge + TextStyle(
                         textDecoration = TextDecoration.LineThrough
                     )
                 )
             }else {
-                Text(text = task.title, style = MaterialTheme.typography.titleSmall)
+                Text(text = task.title,
+                    style = MaterialTheme.typography.titleLarge
+                )
             }
         }
     }

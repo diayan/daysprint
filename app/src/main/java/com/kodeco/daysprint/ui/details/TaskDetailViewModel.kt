@@ -1,4 +1,4 @@
-package com.kodeco.daysprint.ui.addTask
+package com.kodeco.daysprint.ui.details
 
 import androidx.compose.runtime.mutableStateOf
 import com.kodeco.daysprint.DaySprintViewModel
@@ -9,7 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class AddTaskViewModel @Inject constructor(
+class TaskDetailViewModel @Inject constructor(
     private val repository: TaskRepository
 ): DaySprintViewModel() {
     val task = mutableStateOf(Task())
@@ -17,7 +17,7 @@ class AddTaskViewModel @Inject constructor(
     fun initialize(taskId: String) {
         launchCatching {
             if (taskId != TASK_DEFAULT_ID) {
-                //task.value = repository.getTaskById(taskId) ?: Task()
+                task.value = repository.getTaskById(taskId) ?: Task()
             }
         }
     }
@@ -30,18 +30,4 @@ class AddTaskViewModel @Inject constructor(
         task.value = task.value.copy(description = newValue)
     }
 
-
-    fun onDoneClick(popUpScreen: () -> Unit) {
-        launchCatching {
-            val editedTask = task.value
-//            if (editedTask.id.isBlank()) {
-//                repository.insertTask(editedTask)
-//            } else {
-//                //storageService.update(editedTask)
-//            }
-
-            repository.insertTask(editedTask)
-            popUpScreen()
-        }
-    }
 }

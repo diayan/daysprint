@@ -19,7 +19,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.kodeco.daysprint.common.*
-import com.kodeco.daysprint.ui.addTask.AddTaskScreen
+import com.kodeco.daysprint.ui.addTask.AddEditTaskScreen
+import com.kodeco.daysprint.ui.details.TaskDetailScreen
 import com.kodeco.daysprint.ui.splash.SplashScreen
 import com.kodeco.daysprint.ui.tasks.TaskListScreen
 import com.kodeco.daysprint.ui.theme.DaySprintTheme
@@ -89,7 +90,18 @@ fun NavGraphBuilder.daySprintGraph(appState: DaySprintAppState) {
         route = "$EDIT_TASK_SCREEN$TASK_ID_ARG",
         arguments = listOf(navArgument(TASK_ID) { defaultValue = TASK_DEFAULT_ID })
     ) {
-        AddTaskScreen(
+        AddEditTaskScreen(
+            popUpScreen = { appState.popUp() },
+            taskId = it.arguments?.getString(TASK_ID) ?: TASK_DEFAULT_ID
+        )
+    }
+
+
+    composable(
+        route = "$DELETE_TASK_SCREEN$TASK_ID_ARG",
+        arguments = listOf(navArgument(TASK_ID) { defaultValue = TASK_DEFAULT_ID })
+    ) {
+        TaskDetailScreen(
             popUpScreen = { appState.popUp() },
             taskId = it.arguments?.getString(TASK_ID) ?: TASK_DEFAULT_ID
         )
