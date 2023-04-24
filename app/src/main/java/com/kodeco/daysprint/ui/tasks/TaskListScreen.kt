@@ -16,6 +16,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kodeco.daysprint.common.ActionToolbar
 import com.kodeco.daysprint.ext.smallSpacer
 import com.kodeco.daysprint.ext.toolbarActions
+import com.kodeco.daysprint.ui.theme.colorPrimaryDark
 import com.kodeco.daysprint.R.drawable as AppIcon
 import com.kodeco.daysprint.R.string as AppText
 
@@ -32,7 +33,7 @@ fun TaskListScreen(
         floatingActionButton = {
             androidx.compose.material.FloatingActionButton(
                 onClick = { viewModel.onAddClick(openScreen) },
-                backgroundColor = MaterialTheme.colors.primary,
+                backgroundColor = colorPrimaryDark,
                 contentColor = MaterialTheme.colors.onPrimary,
                 modifier = modifier.padding(8.dp)
             ) {
@@ -41,20 +42,23 @@ fun TaskListScreen(
         }
     ) {
         val tasks = viewModel.tasks.collectAsStateWithLifecycle(emptyList())
-        Column(modifier = Modifier.fillMaxWidth().fillMaxHeight()) {
+        Column(modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()) {
             ActionToolbar(
                 title = AppText.tasks,
                 modifier = Modifier.toolbarActions(),
                 endActionIcon = AppIcon.ic_more_vert,
                 endAction = {
                     //viewModel.onSettingsClick(openScreen)
-                }
+                },
+                canNavigateBack = false
             )
 
             Spacer(modifier = Modifier.smallSpacer())
 
             LazyColumn {
-                items(tasks.value, key = { it.id ?: -1}) { taskItem ->
+                items(tasks.value, key = { it.id ?: -1 }) { taskItem ->
                     TaskItem(
                         task = taskItem,
                         onCheckChange = { viewModel.markTaskAsDone(taskItem) },
@@ -70,6 +74,6 @@ fun TaskListScreen(
         }
     }
     LaunchedEffect(viewModel) {
-       // viewModel.loadTaskOptions()
+        // viewModel.loadTaskOptions()
     }
 }

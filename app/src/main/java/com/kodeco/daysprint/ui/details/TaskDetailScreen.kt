@@ -3,12 +3,10 @@ package com.kodeco.daysprint.ui.details
 import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -19,7 +17,7 @@ import com.kodeco.daysprint.R
 import com.kodeco.daysprint.common.ActionToolbar
 import com.kodeco.daysprint.ext.smallSpacer
 import com.kodeco.daysprint.ext.toolbarActions
-import com.kodeco.daysprint.ui.tasks.TaskItem
+import com.kodeco.daysprint.ui.theme.colorPrimaryDark
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -41,8 +39,8 @@ fun TaskDetailScreen(
             androidx.compose.material.FloatingActionButton(
                 onClick = {
                     //viewModel.onAddClick(openScreen)
-                          },
-                backgroundColor = MaterialTheme.colors.primary,
+                },
+                backgroundColor = colorPrimaryDark,
                 contentColor = MaterialTheme.colors.onPrimary,
                 modifier = modifier.padding(8.dp)
             ) {
@@ -50,33 +48,29 @@ fun TaskDetailScreen(
             }
         }
     ) {
-        //val tasks = viewModel.tasks.collectAsStateWithLifecycle(emptyList())
-        Column(modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight()) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+        ) {
             ActionToolbar(
                 title = R.string.delete,
                 modifier = Modifier.toolbarActions(),
-                endActionIcon = R.drawable.ic_more_vert,
+                endActionIcon = R.drawable.ic_delete,
                 endAction = {
-                    //viewModel.onSettingsClick(openScreen)
-                }
+                    viewModel.deleteTask(task, popUpScreen)
+                },
+                canNavigateBack = true,
+                navigateUp = popUpScreen
             )
 
             Spacer(modifier = Modifier.smallSpacer())
-                    TaskItem(
-                        task = task,
-                        onCheckChange = {
-                            //viewModel.markTaskAsDone(taskItem)
-                        },
-                        onActionClick = { action ->
-//                            viewModel.onTaskActionClick(
-//                                openScreen,
-//                                taskItem,
-//                                action
-//                            )
-                        }
-                    )
+            TaskDetailItem(
+                task = task,
+                onCheckChange = {
+                    viewModel.markTaskAsDone(task)
+                }
+            )
         }
     }
 }

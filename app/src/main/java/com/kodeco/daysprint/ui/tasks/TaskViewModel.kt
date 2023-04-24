@@ -13,7 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TaskViewModel @Inject constructor(
     private val repository: TaskRepository
-): DaySprintViewModel() {
+) : DaySprintViewModel() {
     val tasks: Flow<List<Task>> get() = repository.getTasks()
 
     fun markTaskAsDone(task: Task) {
@@ -22,17 +22,11 @@ class TaskViewModel @Inject constructor(
         }
     }
 
-    fun deleteTask(task: Task) {
-        launchCatching {
-            repository.deleteTask(task)
-        }
-    }
-
     fun onAddClick(openScreen: (String) -> Unit) {
         return openScreen.invoke(EDIT_TASK_SCREEN)
     }
 
     fun onTaskActionClick(openScreen: (String) -> Unit, task: Task) {
-        return openScreen.invoke("$DELETE_TASK_SCREEN?$TASK_ID={${task.id}}")
+        return openScreen.invoke("$DELETE_TASK_SCREEN?$TASK_ID=${task.id}")
     }
 }

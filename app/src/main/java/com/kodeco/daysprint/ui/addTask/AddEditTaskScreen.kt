@@ -20,16 +20,18 @@ import com.kodeco.daysprint.R.string as AppText
 @ExperimentalMaterialApi
 fun AddEditTaskScreen(
     popUpScreen: () -> Unit,
-    taskId: String,
     modifier: Modifier = Modifier,
     viewModel: AddEditTaskViewModel = hiltViewModel()
 ) {
     val task by viewModel.task
 
-   // LaunchedEffect(Unit) { viewModel.initialize(taskId) }
-
     Column(
-        modifier = modifier.fillMaxWidth().fillMaxHeight().verticalScroll(rememberScrollState()),
+        modifier = modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .verticalScroll(
+                rememberScrollState()
+            ),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         ActionToolbar(
@@ -38,14 +40,21 @@ fun AddEditTaskScreen(
             endActionIcon = AppIcon.check_mark_24,
             endAction = {
                 viewModel.onDoneClick(popUpScreen)
-            }
+            },
+            canNavigateBack = true,
+            navigateUp = popUpScreen
         )
 
         Spacer(modifier = Modifier.spacer())
 
         val fieldModifier = Modifier.fieldModifier()
         BasicField(AppText.title, task.title ?: "", viewModel::onTitleChange, fieldModifier)
-        BasicField(AppText.description, task.description ?: "", viewModel::onDescriptionChange, fieldModifier)
+        BasicField(
+            AppText.description,
+            task.description ?: "",
+            viewModel::onDescriptionChange,
+            fieldModifier
+        )
 
         Spacer(modifier = Modifier.spacer())
     }

@@ -5,11 +5,16 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import com.kodeco.daysprint.ui.theme.colorPrimary
+import com.kodeco.daysprint.R.string as AppText
+
 
 @Composable
 fun BasicToolbar(@StringRes title: Int) {
@@ -21,19 +26,57 @@ fun ActionToolbar(
     @StringRes title: Int,
     @DrawableRes endActionIcon: Int,
     modifier: Modifier,
-    endAction: () -> Unit
+    endAction: () -> Unit,
+    canNavigateBack: Boolean,
+    navigateUp: () -> Unit = {}
 ) {
-    TopAppBar(
-        title = { Text(stringResource(title)) },
-        backgroundColor = toolbarColor(),
-        actions = {
-            Box(modifier) {
-                IconButton(onClick = endAction) {
-                    Icon(painter = painterResource(endActionIcon), contentDescription = "Action")
+    if (canNavigateBack) {
+        TopAppBar(
+            title = {
+                Text(
+                stringResource(title),
+                color = Color.White
+            ) },
+            backgroundColor = colorPrimary,
+            actions = {
+                Box(modifier) {
+                    IconButton(onClick = endAction) {
+                        Icon(
+                            painter = painterResource(endActionIcon),
+                            contentDescription = "Action"
+                        )
+                    }
+                }
+            },
+            navigationIcon = {
+                IconButton(onClick = navigateUp) {
+                    Icon(
+                        imageVector = Icons.Filled.ArrowBack,
+                        contentDescription = stringResource(AppText.back_button)
+                    )
                 }
             }
-        }
-    )
+        )
+    } else {
+        TopAppBar(
+            title = {
+                Text(
+                    stringResource(title),
+                    color = Color.White
+                )},
+            backgroundColor = colorPrimary,
+            actions = {
+                Box(modifier) {
+                    IconButton(onClick = endAction) {
+                        Icon(
+                            painter = painterResource(endActionIcon),
+                            contentDescription = "Action"
+                        )
+                    }
+                }
+            }
+        )
+    }
 }
 
 @Composable
