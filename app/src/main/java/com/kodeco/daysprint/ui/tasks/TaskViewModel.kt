@@ -1,6 +1,5 @@
 package com.kodeco.daysprint.ui.tasks
 
-import androidx.lifecycle.ViewModel
 import com.kodeco.daysprint.DELETE_TASK_SCREEN
 import com.kodeco.daysprint.DaySprintViewModel
 import com.kodeco.daysprint.EDIT_TASK_SCREEN

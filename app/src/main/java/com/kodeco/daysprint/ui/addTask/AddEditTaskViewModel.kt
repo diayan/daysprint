@@ -12,7 +12,7 @@ import javax.inject.Inject
 class AddEditTaskViewModel @Inject constructor(
     private val repository: TaskRepository
 ): DaySprintViewModel() {
-    val task = mutableStateOf(Task())
+    val task = mutableStateOf(Task.EMPTY)
 //
 //    fun initialize(taskId: String) {
 //        launchCatching {

@@ -5,13 +5,22 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.*
 
-@Entity
+@Entity(tableName = TaskDao.TABLE_NAME)
 data class Task(
-    var title: String = "",
-    val priority: String = "",
-    val description: String = "",
-    val completed: Boolean = false,
+    @ColumnInfo(name = "title")
+    val title: String,
+    @ColumnInfo(name = "description")
+    val description: String,
+    @ColumnInfo(name = "completed")
+    val completed: Boolean,
     @PrimaryKey @ColumnInfo(name = "taskid")
-    var id: String = UUID.randomUUID().toString()
-
-)
+    val id: String = UUID.randomUUID().toString()
+){
+    companion object {
+        val EMPTY = Task(
+            title = "",
+            description = "",
+            completed = false
+        )
+    }
+}

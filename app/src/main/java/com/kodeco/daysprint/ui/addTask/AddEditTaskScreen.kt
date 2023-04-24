@@ -44,8 +44,8 @@ fun AddEditTaskScreen(
         Spacer(modifier = Modifier.spacer())
 
         val fieldModifier = Modifier.fieldModifier()
-        BasicField(AppText.title, task.title, viewModel::onTitleChange, fieldModifier)
-        BasicField(AppText.description, task.description, viewModel::onDescriptionChange, fieldModifier)
+        BasicField(AppText.title, task.title ?: "", viewModel::onTitleChange, fieldModifier)
+        BasicField(AppText.description, task.description ?: "", viewModel::onDescriptionChange, fieldModifier)
 
         Spacer(modifier = Modifier.spacer())
     }

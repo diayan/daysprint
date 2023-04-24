@@ -24,7 +24,9 @@ object AppModule {
             app,
             TaskDatabase::class.java,
             "task_db"
-        ).build()
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
 

@@ -39,13 +39,13 @@ fun TaskItem(
             )
             if(task.completed) {
                 Text(
-                    text = task.title,
+                    text = task.title ?: "",
                     style = MaterialTheme.typography.titleLarge + TextStyle(
                         textDecoration = TextDecoration.LineThrough
                     )
                 )
             }else {
-                Text(text = task.title,
+                Text(text = task.title ?: "",
                     style = MaterialTheme.typography.titleLarge
                 )
             }
