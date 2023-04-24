@@ -57,15 +57,12 @@ fun TaskListScreen(
                 items(tasks.value, key = { it.id ?: -1}) { taskItem ->
                     TaskItem(
                         task = taskItem,
-                        onCheckChange = {
-                            viewModel.markTaskAsDone(taskItem)
-                                        },
+                        onCheckChange = { viewModel.markTaskAsDone(taskItem) },
                         onActionClick = { action ->
-//                            viewModel.onTaskActionClick(
-//                                openScreen,
-//                                taskItem,
-//                                action
-//                            )
+                            viewModel.onTaskActionClick(
+                                openScreen,
+                                taskItem
+                            )
                         }
                     )
                 }

@@ -1,8 +1,9 @@
 package com.kodeco.daysprint.ui.tasks
 
-import androidx.lifecycle.ViewModel
+import com.kodeco.daysprint.DELETE_TASK_SCREEN
 import com.kodeco.daysprint.DaySprintViewModel
 import com.kodeco.daysprint.EDIT_TASK_SCREEN
+import com.kodeco.daysprint.TASK_ID
 import com.kodeco.daysprint.data.Task
 import com.kodeco.daysprint.data.TaskRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,5 +30,9 @@ class TaskViewModel @Inject constructor(
 
     fun onAddClick(openScreen: (String) -> Unit) {
         return openScreen.invoke(EDIT_TASK_SCREEN)
+    }
+
+    fun onTaskActionClick(openScreen: (String) -> Unit, task: Task) {
+        return openScreen.invoke("$DELETE_TASK_SCREEN?$TASK_ID={${task.id}}")
     }
 }
