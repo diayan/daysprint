@@ -6,14 +6,12 @@ import com.kodeco.daysprint.TASK_DEFAULT_ID
 import com.kodeco.daysprint.data.Task
 import com.kodeco.daysprint.data.TaskRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class TaskDetailViewModel @Inject constructor(
     private val repository: TaskRepository
-): DaySprintViewModel() {
+) : DaySprintViewModel() {
     val task = mutableStateOf(Task.EMPTY)
 
     fun initialize(taskId: String) {
@@ -24,12 +22,16 @@ class TaskDetailViewModel @Inject constructor(
         }
     }
 
-    fun onTitleChange(newValue: String) {
-        task.value = task.value.copy(title = newValue)
+    fun markTaskAsDone(task: Task) {
+        launchCatching {
+            launchCatching { repository.update(task.copy(completed = !task.completed)) }
+        }
     }
 
-    fun onDescriptionChange(newValue: String) {
-        task.value = task.value.copy(description = newValue)
+    fun deleteTask(task: Task, popUpScreen: () -> Unit) {
+        launchCatching {
+            repository.deleteTask(task)
+            popUpScreen()
+        }
     }
-
 }

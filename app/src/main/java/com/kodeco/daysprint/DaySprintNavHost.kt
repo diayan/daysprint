@@ -30,31 +30,31 @@ import kotlinx.coroutines.CoroutineScope
 @ExperimentalMaterial3Api
 fun DaySprintNavHost() {
     DaySprintTheme {
-        Surface(color = MaterialTheme.colors.background) {
-            val appState = rememberAppState()
+        // Surface(color = MaterialTheme.colors.background) {
+        val appState = rememberAppState()
 
-            Scaffold(
-                snackbarHost = {
-                    SnackbarHost(
-                        hostState = it,
-                        modifier = Modifier.padding(8.dp),
-                        snackbar = { snackbarData ->
-                            Snackbar(snackbarData, contentColor = MaterialTheme.colors.onPrimary)
-                        }
-                    )
-                },
-                scaffoldState = appState.scaffoldState
-            ) { innerPaddingModifier ->
-                NavHost(
-                    navController = appState.navController,
-                    startDestination = SPLASH_SCREEN,
-                    modifier = Modifier.padding(innerPaddingModifier)
-                ) {
-                    daySprintGraph(appState)
-                }
+        Scaffold(
+            snackbarHost = {
+                SnackbarHost(
+                    hostState = it,
+                    modifier = Modifier.padding(8.dp),
+                    snackbar = { snackbarData ->
+                        Snackbar(snackbarData, contentColor = MaterialTheme.colors.onPrimary)
+                    }
+                )
+            },
+            scaffoldState = appState.scaffoldState
+        ) { innerPaddingModifier ->
+            NavHost(
+                navController = appState.navController,
+                startDestination = SPLASH_SCREEN,
+                modifier = Modifier.padding(innerPaddingModifier)
+            ) {
+                daySprintGraph(appState)
             }
         }
     }
+    //}
 }
 
 @Composable
@@ -92,7 +92,6 @@ fun NavGraphBuilder.daySprintGraph(appState: DaySprintAppState) {
     ) {
         AddEditTaskScreen(
             popUpScreen = { appState.popUp() },
-            taskId = it.arguments?.getString(TASK_ID) ?: TASK_DEFAULT_ID
         )
     }
 
