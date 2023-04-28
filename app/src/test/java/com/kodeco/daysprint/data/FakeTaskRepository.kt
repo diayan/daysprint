@@ -2,26 +2,27 @@ package com.kodeco.daysprint.data
 
 import kotlinx.coroutines.flow.Flow
 
-class TaskRepositoryImpl(
-    private val taskDao: TaskDao
-): TaskRepository {
+class FakeTaskRepository(
+    var tasks: MutableList<Task>? = mutableListOf()
+): TaskDataSource {
     override suspend fun insertTask(task: Task) {
-        taskDao.insertTask(task = task)
+        tasks?.add(task)
     }
 
     override suspend fun deleteTask(task: Task) {
-        taskDao.deleteTask(task)
+        tasks?.remove(task)
     }
 
     override suspend fun getTaskById(id: String): Task? {
-        return taskDao.getTaskById(id)
+        TODO("Not yet implemented")
     }
 
     override suspend fun update(task: Task) {
-        taskDao.insertTask(task)
+        TODO("Not yet implemented")
     }
 
     override fun getTasks(): Flow<List<Task>> {
-        return  taskDao.getTasks()
+        TODO("Not yet implemented")
     }
+
 }
