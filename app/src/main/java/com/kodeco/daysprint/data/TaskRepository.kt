@@ -1,15 +1,36 @@
 package com.kodeco.daysprint.data
 
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.withContext
 
-interface TaskRepository {
-    suspend fun insertTask(task: Task)
+class TaskRepository(
+    private val taskDao: TaskDao,
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+): TaskDataSource {
+    override suspend fun insertTask(task: Task) =
+        withContext(ioDispatcher) {
+            taskDao.insertTask(task = task)
+    }
 
-    suspend fun deleteTask(task: Task)
+    override suspend fun deleteTask(task: Task)  =
+        withContext(ioDispatcher){
+        taskDao.deleteTask(task)
+    }
 
-    suspend fun getTaskById(id: String): Task?
+    override suspend fun getTaskById(id: String): Task? =
+        withContext(ioDispatcher) {
+            return@withContext taskDao.getTaskById(id)
+    }
 
-    suspend fun update(task: Task)
+    override suspend fun update(task: Task) =
+        withContext(ioDispatcher) {
+        taskDao.insertTask(task)
+    }
 
-    fun getTasks(): Flow<List<Task>>
+    override fun getTasks(): Flow<List<Task>> {
+        return  taskDao.getTasks()
+    }
+
 }

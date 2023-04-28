@@ -30,9 +30,7 @@ import kotlinx.coroutines.CoroutineScope
 @ExperimentalMaterial3Api
 fun DaySprintNavHost() {
     DaySprintTheme {
-        // Surface(color = MaterialTheme.colors.background) {
         val appState = rememberAppState()
-
         Scaffold(
             snackbarHost = {
                 SnackbarHost(
@@ -54,7 +52,6 @@ fun DaySprintNavHost() {
             }
         }
     }
-    //}
 }
 
 @Composable
