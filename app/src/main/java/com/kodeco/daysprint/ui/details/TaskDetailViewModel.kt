@@ -6,6 +6,8 @@ import com.kodeco.daysprint.TASK_DEFAULT_ID
 import com.kodeco.daysprint.data.Task
 import com.kodeco.daysprint.data.TaskRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,14 +25,14 @@ class TaskDetailViewModel @Inject constructor(
     }
 
     fun markTaskAsDone(task: Task) {
-        launchCatching {
-            launchCatching { repository.update(task.copy(completed = !task.completed)) }
-        }
+        launchCatching { repository.update(task.copy(completed = !task.completed)) }
     }
 
     fun deleteTask(task: Task, popUpScreen: () -> Unit) {
-        launchCatching {
-            repository.deleteTask(task)
+        launchCatching(dispatcher = Dispatchers.Main) {
+            withContext(Dispatchers.IO) {
+                repository.deleteTask(task)
+            }
             popUpScreen()
         }
     }

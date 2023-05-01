@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 
 class FakeTaskRepository(
     var tasks: MutableList<Task>? = mutableListOf()
-): TaskDataSource {
+): ITaskRepository {
     override suspend fun insertTask(task: Task) {
         tasks?.add(task)
     }

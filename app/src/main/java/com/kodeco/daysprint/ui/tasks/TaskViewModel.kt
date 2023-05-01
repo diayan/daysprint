@@ -18,7 +18,7 @@ class TaskViewModel @Inject constructor(
 
     fun markTaskAsDone(task: Task) {
         launchCatching {
-            launchCatching { repository.update(task.copy(completed = !task.completed)) }
+            repository.update(task.copy(completed = !task.completed))
         }
     }
 
