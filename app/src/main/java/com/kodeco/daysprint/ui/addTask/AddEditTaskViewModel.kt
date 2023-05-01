@@ -5,6 +5,8 @@ import com.kodeco.daysprint.DaySprintViewModel
 import com.kodeco.daysprint.data.Task
 import com.kodeco.daysprint.data.TaskRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,9 +24,11 @@ class AddEditTaskViewModel @Inject constructor(
     }
 
     fun onDoneClick(popUpScreen: () -> Unit) {
-        launchCatching {
+        launchCatching(dispatcher = Dispatchers.Main) {
             if (task.value.id.isNotBlank()) {
-                repository.insertTask(task.value)
+                withContext(Dispatchers.IO) {
+                    repository.insertTask(task.value)
+                }
             }
             popUpScreen()
         }

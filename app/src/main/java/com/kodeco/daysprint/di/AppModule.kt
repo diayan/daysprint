@@ -2,8 +2,11 @@ package com.kodeco.daysprint.di
 
 import android.app.Application
 import androidx.room.Room
+import com.kodeco.daysprint.data.TaskDataSource
 import com.kodeco.daysprint.data.TaskDatabase
+import com.kodeco.daysprint.data.TaskLocalDataSource
 import com.kodeco.daysprint.data.TaskRepository
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,14 +29,23 @@ object AppModule {
             .build()
     }
 
+    @Provides
+    @Singleton
+    fun provideTodoRepository(db: TaskLocalDataSource): TaskRepository {
+        return TaskRepository(db)
+    }
 
     @Provides
     @Singleton
-    fun provideTodoRepository(db: TaskDatabase): TaskRepository {
-        return TaskRepository(db.dao)
-    }
+    fun provideDao(db: TaskDatabase) = db.dao
+}
 
-//    @Binds
-//    abstract fun provideLogService(impl: LogServiceImpl): LogService
+@Module
+@InstallIn(SingletonComponent::class)
+abstract class DataSourceModule {
+    @Binds
+    abstract fun bindTaskDataSource(
+        taskLocalDataSource: TaskLocalDataSource
+    ): TaskDataSource
 
 }

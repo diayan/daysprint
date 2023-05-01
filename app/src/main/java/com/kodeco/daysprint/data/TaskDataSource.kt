@@ -1,5 +1,6 @@
 package com.kodeco.daysprint.data
 
+import dagger.Provides
 import kotlinx.coroutines.flow.Flow
 
 interface TaskDataSource {
