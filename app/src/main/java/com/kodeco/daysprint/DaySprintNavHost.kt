@@ -36,8 +36,8 @@ fun DaySprintNavHost() {
                 SnackbarHost(
                     hostState = it,
                     modifier = Modifier.padding(8.dp),
-                    snackbar = { snackbarData ->
-                        Snackbar(snackbarData, contentColor = MaterialTheme.colors.onPrimary)
+                    snackbar = { snackBarData ->
+                        Snackbar(snackBarData, contentColor = MaterialTheme.colors.onPrimary)
                     }
                 )
             },
@@ -76,7 +76,9 @@ fun resources(): Resources {
 @ExperimentalMaterial3Api
 fun NavGraphBuilder.daySprintGraph(appState: DaySprintAppState) {
     composable(SPLASH_SCREEN) {
-        SplashScreen(openAndPopUp = { route, popUp -> appState.navigateAndPopUp(route, popUp) })
+        SplashScreen(openAndPopUp = {
+                route, popUp -> appState.navigateAndPopUp(route, popUp)
+        })
     }
 
     composable(TASKS_SCREEN) {
@@ -85,17 +87,20 @@ fun NavGraphBuilder.daySprintGraph(appState: DaySprintAppState) {
 
     composable(
         route = "$EDIT_TASK_SCREEN$TASK_ID_ARG",
-        arguments = listOf(navArgument(TASK_ID) { defaultValue = TASK_DEFAULT_ID })
+        arguments = listOf(navArgument(TASK_ID) {
+            defaultValue = TASK_DEFAULT_ID }
+        )
     ) {
         AddEditTaskScreen(
             popUpScreen = { appState.popUp() },
         )
     }
 
-
     composable(
         route = "$DELETE_TASK_SCREEN$TASK_ID_ARG",
-        arguments = listOf(navArgument(TASK_ID) { defaultValue = TASK_DEFAULT_ID })
+        arguments = listOf(navArgument(TASK_ID) {
+            defaultValue = TASK_DEFAULT_ID
+        })
     ) {
         TaskDetailScreen(
             popUpScreen = { appState.popUp() },
