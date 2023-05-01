@@ -17,11 +17,6 @@ import com.kodeco.daysprint.R.string as AppText
 
 
 @Composable
-fun BasicToolbar(@StringRes title: Int) {
-    TopAppBar(title = { Text(stringResource(title)) }, backgroundColor = toolbarColor())
-}
-
-@Composable
 fun ActionToolbar(
     @StringRes title: Int,
     @DrawableRes endActionIcon: Int,
@@ -43,7 +38,8 @@ fun ActionToolbar(
                     IconButton(onClick = endAction) {
                         Icon(
                             painter = painterResource(endActionIcon),
-                            contentDescription = "Action"
+                            contentDescription = "Action",
+                            tint = Color.White
                         )
                     }
                 }
@@ -52,7 +48,8 @@ fun ActionToolbar(
                 IconButton(onClick = navigateUp) {
                     Icon(
                         imageVector = Icons.Filled.ArrowBack,
-                        contentDescription = stringResource(AppText.back_button)
+                        contentDescription = stringResource(AppText.back_button),
+                        tint = Color.White
                     )
                 }
             }
@@ -70,7 +67,8 @@ fun ActionToolbar(
                     IconButton(onClick = endAction) {
                         Icon(
                             painter = painterResource(endActionIcon),
-                            contentDescription = "Action"
+                            contentDescription = "Action",
+                            tint = Color.White
                         )
                     }
                 }

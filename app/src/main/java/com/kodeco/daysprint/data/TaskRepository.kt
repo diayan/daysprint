@@ -1,7 +1,5 @@
 package com.kodeco.daysprint.data
 
-import android.app.Application
-import androidx.room.Room
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
