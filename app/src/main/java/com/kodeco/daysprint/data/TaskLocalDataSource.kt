@@ -13,13 +13,15 @@ class TaskLocalDataSource @Inject constructor(
     override suspend fun deleteTask(task: Task) =
         taskDao.deleteTask(task)
 
-    override suspend fun getTaskById(id: String): Task? = taskDao.getTaskById(id)
+    override suspend fun getTaskById(id: String): Task? =
+        taskDao.getTaskById(id)
 
 
     override suspend fun update(task: Task) =
         taskDao.insertTask(task)
 
 
-    override fun getTasks(): Flow<List<Task>> = taskDao.getTasks()
+    override fun getTasks(): Flow<List<Task>> =
+        taskDao.getTasks()
 
 }
