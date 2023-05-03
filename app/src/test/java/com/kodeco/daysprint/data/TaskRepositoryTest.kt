@@ -1,6 +1,5 @@
 package com.kodeco.daysprint.data
 
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
