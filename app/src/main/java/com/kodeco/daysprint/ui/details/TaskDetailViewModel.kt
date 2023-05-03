@@ -25,7 +25,9 @@ class TaskDetailViewModel @Inject constructor(
     }
 
     fun markTaskAsDone(task: Task) {
-        launchCatching { repository.update(task.copy(completed = !task.completed)) }
+        launchCatching {
+            repository.update(task.copy(completed = !task.completed))
+        }
     }
 
     fun deleteTask(task: Task, popUpScreen: () -> Unit) {

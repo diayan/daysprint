@@ -21,6 +21,9 @@ interface TaskDao {
 //    @Query("SELECT * FROM task WHERE id = :id")
 //    suspend fun update(id: Int): Task?
 
+    @Query("DELETE FROM $TABLE_NAME")
+    suspend fun deleteAllTasks()
+
     companion object {
         const val TABLE_NAME = "task"
     }
