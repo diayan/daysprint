@@ -68,4 +68,16 @@ class TaskRepository constructor(
         return tasksLocalDataSource.getTasks()
     }
 
+    override suspend fun deleteCompletedTasks() {
+        withContext(ioDispatcher) {
+            tasksLocalDataSource.deleteCompletedTasks()
+        }
+    }
+
+    override suspend fun deleteAllTasks() {
+        withContext(ioDispatcher) {
+            tasksLocalDataSource.deleteAllTasks()
+        }
+    }
+
 }

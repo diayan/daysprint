@@ -58,4 +58,12 @@ class TaskLocalDataSource @Inject constructor(
     override fun getTasks(): Flow<List<Task>> =
         taskDao.getTasks()
 
+
+    override suspend fun deleteCompletedTasks()  {
+        taskDao.deleteCompletedTasks()
+    }
+
+    override suspend fun deleteAllTasks()  {
+        taskDao.deleteAllTasks()
+    }
 }

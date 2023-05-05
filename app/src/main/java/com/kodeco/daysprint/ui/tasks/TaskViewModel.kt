@@ -34,14 +34,13 @@
 
 package com.kodeco.daysprint.ui.tasks
 
-import com.kodeco.daysprint.DELETE_TASK_SCREEN
-import com.kodeco.daysprint.DaySprintViewModel
-import com.kodeco.daysprint.EDIT_TASK_SCREEN
-import com.kodeco.daysprint.TASK_ID
+import com.kodeco.daysprint.*
 import com.kodeco.daysprint.data.Task
 import com.kodeco.daysprint.data.TaskRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 @HiltViewModel
@@ -54,6 +53,16 @@ class TaskViewModel @Inject constructor(
         launchCatching {
             repository.update(task.copy(completed = !task.completed))
         }
+    }
+
+    fun  deleteAllTasks() {
+        launchCatching {
+            repository.deleteAllTasks()
+        }
+    }
+
+    fun hasTasks(): Flow<Boolean> {
+        return tasks.map { it.isNotEmpty() }.distinctUntilChanged()
     }
 
     fun onAddClick(openScreen: (String) -> Unit) {

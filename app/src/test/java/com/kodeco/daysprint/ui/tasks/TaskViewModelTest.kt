@@ -55,13 +55,13 @@ class TaskViewModelTest {
     private lateinit var repository: TaskRepository
     private lateinit var viewModel: TaskViewModel
 
-    val tasks = listOf(
+    private val tasks = listOf(
         Task("Task 1", "Description 1", false),
         Task("Task 2", "Description 2", true)
     )
 
-    //@get:Rule
-   // var instantTaskExecutorRule = InstantTaskExecutorRule()
+    @get:Rule
+    var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Before
     fun setupViewModel() = runBlocking {
