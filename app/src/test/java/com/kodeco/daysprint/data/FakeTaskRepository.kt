@@ -59,4 +59,12 @@ class FakeTaskRepository(
         TODO("Not yet implemented")
     }
 
+    override suspend fun deleteCompletedTasks() {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun deleteAllTasks() {
+        TODO("Not yet implemented")
+    }
+
 }
