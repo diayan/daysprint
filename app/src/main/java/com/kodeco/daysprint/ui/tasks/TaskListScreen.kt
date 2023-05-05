@@ -133,9 +133,7 @@ fun EmptyStateScreen() {
             endAction = {},
             canNavigateBack = false
         )
-
-        Spacer(modifier = Modifier.smallSpacer())
-
+        
         Column(
             modifier = Modifier
                 .fillMaxSize()
