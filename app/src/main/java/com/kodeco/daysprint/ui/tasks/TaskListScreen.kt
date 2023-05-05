@@ -41,12 +41,16 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.kodeco.daysprint.R
 import com.kodeco.daysprint.common.ActionToolbar
 import com.kodeco.daysprint.ext.smallSpacer
 import com.kodeco.daysprint.ext.toolbarActions
@@ -76,38 +80,78 @@ fun TaskListScreen(
         }
     ) {
         val tasks = viewModel.tasks.collectAsStateWithLifecycle(emptyList())
-        Column(modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight()) {
-            ActionToolbar(
-                title = AppText.tasks,
-                modifier = Modifier.toolbarActions(),
-                endActionIcon = AppIcon.ic_more_vert,
-                endAction = {
-                    //viewModel.onSettingsClick(openScreen)
-                },
-                canNavigateBack = false
-            )
+        val hasTask = viewModel.hasTasks().collectAsStateWithLifecycle(false)
+        if (!hasTask.value) {
+            EmptyStateScreen()
+        } else {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight()
+            ) {
+                ActionToolbar(
+                    title = AppText.tasks,
+                    modifier = Modifier.toolbarActions(),
+                    endActionIcon = R.drawable.ic_delete,
+                    endAction = {
+                                viewModel.deleteAllTasks()
+                    },
+                    canNavigateBack = false
+                )
 
-            Spacer(modifier = Modifier.smallSpacer())
+                Spacer(modifier = Modifier.smallSpacer())
 
-            LazyColumn {
-                items(tasks.value, key = { it.id ?: -1 }) { taskItem ->
-                    TaskItem(
-                        task = taskItem,
-                        onCheckChange = { viewModel.markTaskAsDone(taskItem) },
-                        onActionClick = { action ->
-                            viewModel.onTaskActionClick(
-                                openScreen,
-                                taskItem
-                            )
-                        }
-                    )
+                LazyColumn {
+                    items(tasks.value, key = { it.id ?: -1 }) { taskItem ->
+                        TaskItem(
+                            task = taskItem,
+                            onCheckChange = { viewModel.markTaskAsDone(taskItem) },
+                            onActionClick = { action ->
+                                viewModel.onTaskActionClick(
+                                    openScreen,
+                                    taskItem
+                                )
+                            }
+                        )
+                    }
                 }
             }
         }
     }
-    LaunchedEffect(viewModel) {
-        // viewModel.loadTaskOptions()
+}
+
+@Composable
+fun EmptyStateScreen() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        ActionToolbar(
+            title = AppText.tasks,
+            modifier = Modifier.toolbarActions(),
+            endActionIcon = R.drawable.ic_delete,
+            endAction = {},
+            canNavigateBack = false
+        )
+        
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.ic_hourglass_empty),
+                contentDescription = "Empty hourglass",
+                modifier = Modifier.size(36.dp),
+                tint = colorPrimaryDark
+            )
+            Spacer(modifier = Modifier.smallSpacer())
+            Text(
+                text = "No tasks found, add a new task",
+                style = androidx.compose.material3.MaterialTheme.typography.bodyLarge
+            )
+        }
     }
 }

@@ -46,4 +46,8 @@ interface TaskDataSource {
     suspend fun update(task: Task)
 
     fun getTasks(): Flow<List<Task>>
+
+    suspend fun deleteCompletedTasks()
+
+    suspend fun deleteAllTasks()
 }

@@ -51,11 +51,14 @@ interface TaskDao {
     @Query("SELECT * FROM $TABLE_NAME")
     fun getTasks(): Flow<List<Task>>
 
-//    @Query("SELECT * FROM task WHERE id = :id")
-//    suspend fun update(id: Int): Task?
+    @Query("SELECT * FROM task WHERE taskid = :id")
+    suspend fun update(id: Int): Task?
 
     @Query("DELETE FROM $TABLE_NAME")
     suspend fun deleteAllTasks()
+
+    @Query("DELETE FROM $TABLE_NAME WHERE completed = 1")
+    suspend fun deleteCompletedTasks(): Int
 
     companion object {
         const val TABLE_NAME = "task"
