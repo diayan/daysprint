@@ -37,6 +37,7 @@ package com.kodeco.daysprint.data
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
+//TODO: Implement FakeDataSource
 class FakeDataSource(
     var tasks: MutableList<Task>? = mutableListOf()
 ): TaskDataSource {
@@ -60,5 +61,13 @@ class FakeDataSource(
         return flow {
             emit(tasks ?: emptyList())
         }
+    }
+
+    override suspend fun deleteCompletedTasks() {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun deleteAllTasks() {
+        TODO("Not yet implemented")
     }
 }

@@ -42,6 +42,7 @@ import org.junit.Test
 
 
 class TaskRepositoryTest {
+    //TODO: create test data
     private val task1 = Task("Title1", description = "Some test", completed = true)
     private val task2 = Task("Title2", description = "Test two", completed = false)
     private val task3 = Task("Title3", description = "Test three", completed = false)
@@ -49,10 +50,10 @@ class TaskRepositoryTest {
     private val newTask = mutableListOf(task3)
 
     private lateinit var taskLocalDataSource: FakeDataSource
-
     //class under test
     private lateinit var taskRepository: TaskRepository
 
+    //TODO: Setup system under test
     @Before
     fun createRepository() {
         taskLocalDataSource = FakeDataSource(
@@ -63,12 +64,14 @@ class TaskRepositoryTest {
         )
     }
 
+    //TODO: Test to check getting tests from data source
     @Test
     fun getTasks_GetAllTasksFromLocal() = runBlocking {
         val tasks = taskRepository.getTasks().first()
         assertEquals(tasks, localTasks)
     }
 
+    //TODO: Test saving tasks to the db
     @Test
     fun saveTask_SaveTaskToLocal() = runBlocking {
         taskRepository.insertTask(task3)
@@ -76,11 +79,6 @@ class TaskRepositoryTest {
         assertEquals(newTask.first(), task)
     }
 
-    @Test
-    fun clearTasks_clearAllTasks() = runBlocking {
-        //taskRepository.clearTasks()
-        //assertEquals()
-    }
 
     @Test
     fun deleteTask_deleteASpecificTask() = runBlocking {

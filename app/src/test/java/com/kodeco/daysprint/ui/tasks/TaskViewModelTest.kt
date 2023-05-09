@@ -42,7 +42,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -63,27 +63,32 @@ class TaskViewModelTest {
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
+    //TODO: Setup the system under test
     @Before
     fun setupViewModel() = runBlocking {
        repository = Mockito.mock(TaskRepository::class.java)
         viewModel = TaskViewModel(repository)
     }
 
+    //TODO: Test that tasks list is not empty
     @Test
-    fun allTasks_checkNumberOfTasks() = runTest {
+    fun allTasks_checkThatTasksIsNotEmpty() = runTest {
         val flow = flowOf(tasks)
         `when`(repository.getTasks()).thenReturn(flow)
         val tasksCount = flow.first().size
-        assertEquals(tasksCount, 2)
+        assertNotEquals(tasksCount, 0)
     }
 
+    //TODO: Test if a task is completed
     @Test
-    fun testMarkTaskAsDone() = runTest {
+    fun completedTask_iSTaskMarkAsCompleted() = runTest {
         val task = Task(
             "Task 1", "Description 1", false
         )
         viewModel.markTaskAsDone(task)
         verify(repository).update(task.copy(completed = true))
     }
+
+
 
 }

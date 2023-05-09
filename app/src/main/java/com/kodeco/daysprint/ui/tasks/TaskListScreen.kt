@@ -133,7 +133,7 @@ fun EmptyStateScreen() {
             endAction = {},
             canNavigateBack = false
         )
-        
+
         Column(
             modifier = Modifier
                 .fillMaxSize()

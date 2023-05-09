@@ -52,7 +52,7 @@ import com.kodeco.daysprint.data.Task
 @ExperimentalMaterial3Api
 fun TaskDetailItem(
     task: Task,
-    onCheckChange: () -> Unit
+    onCheckChange: () -> Unit,
 ) {
     Card(
         colors = CardDefaults.cardColors(
@@ -70,27 +70,26 @@ fun TaskDetailItem(
                 modifier = Modifier.padding(8.dp, 0.dp)
             )
             if (task.completed) {
-
                 Column {
                     Text(
-                        text = task.title ?: "",
+                        text = task.title,
                         style = androidx.compose.material3.MaterialTheme.typography.titleLarge + TextStyle(
                             textDecoration = TextDecoration.LineThrough
                         )
                     )
                     Text(
-                        text = task.description ?: "",
+                        text = task.description,
                         style = androidx.compose.material3.MaterialTheme.typography.bodyLarge
                     )
                 }
             } else {
                 Column {
                     Text(
-                        text = task.title ?: "",
+                        text = task.title,
                         style = androidx.compose.material3.MaterialTheme.typography.titleLarge
                     )
                     Text(
-                        text = task.description ?: "",
+                        text = task.description,
                         style = androidx.compose.material3.MaterialTheme.typography.bodyLarge
                     )
                 }
