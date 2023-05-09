@@ -53,7 +53,7 @@ class TaskRepositoryTest {
     //class under test
     private lateinit var taskRepository: TaskRepository
 
-    //TODO: Setup Test
+    //TODO: Setup system under test
     @Before
     fun createRepository() {
         taskLocalDataSource = FakeDataSource(
@@ -71,6 +71,7 @@ class TaskRepositoryTest {
         assertEquals(tasks, localTasks)
     }
 
+    //TODO: Test saving tasks to the db
     @Test
     fun saveTask_SaveTaskToLocal() = runBlocking {
         taskRepository.insertTask(task3)
@@ -78,11 +79,6 @@ class TaskRepositoryTest {
         assertEquals(newTask.first(), task)
     }
 
-    @Test
-    fun clearTasks_clearAllTasks() = runBlocking {
-        //taskRepository.clearTasks()
-        //assertEquals()
-    }
 
     @Test
     fun deleteTask_deleteASpecificTask() = runBlocking {

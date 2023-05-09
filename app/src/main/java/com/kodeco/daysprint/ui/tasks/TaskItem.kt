@@ -59,7 +59,6 @@ fun TaskItem(
         ),
         modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 0.dp),
         onClick = { onActionClick(task.id) }
-
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -72,14 +71,14 @@ fun TaskItem(
             )
             if (task.completed) {
                 Text(
-                    text = task.title ?: "",
+                    text = task.title,
                     style = MaterialTheme.typography.titleLarge + TextStyle(
                         textDecoration = TextDecoration.LineThrough
                     )
                 )
             } else {
                 Text(
-                    text = task.title ?: "",
+                    text = task.title,
                     style = MaterialTheme.typography.titleLarge
                 )
             }

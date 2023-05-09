@@ -64,6 +64,7 @@ fun SplashScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
     }
 
     LaunchedEffect(Unit) {

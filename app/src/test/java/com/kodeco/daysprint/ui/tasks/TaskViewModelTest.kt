@@ -38,12 +38,10 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.kodeco.daysprint.data.Task
 import com.kodeco.daysprint.data.TaskRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Before
 import org.junit.Rule
@@ -65,12 +63,14 @@ class TaskViewModelTest {
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
+    //TODO: Setup the system under test
     @Before
     fun setupViewModel() = runBlocking {
        repository = Mockito.mock(TaskRepository::class.java)
         viewModel = TaskViewModel(repository)
     }
 
+    //TODO: Test that tasks list is not empty
     @Test
     fun allTasks_checkThatTasksIsNotEmpty() = runTest {
         val flow = flowOf(tasks)
@@ -79,14 +79,7 @@ class TaskViewModelTest {
         assertNotEquals(tasksCount, 0)
     }
 
-    @Test
-    fun tasksViewModel_loadTasks_showFirstTask() {
-        // Given a VM using fake data
-
-        // Verify that the exposed data is correct
-       // assertEquals(viewModel.tasks, UserAlice.name)
-    }
-
+    //TODO: Test if a task is completed
     @Test
     fun completedTask_iSTaskMarkAsCompleted() = runTest {
         val task = Task(
