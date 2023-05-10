@@ -79,7 +79,6 @@ class TaskRepositoryTest {
         assertEquals(newTask.first(), task)
     }
 
-
     @Test
     fun deleteTask_deleteASpecificTask() = runBlocking {
         taskRepository.deleteTask(task3)
